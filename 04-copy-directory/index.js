@@ -2,12 +2,13 @@ const fs = require ('fs');
 const path = require ('path');
 
 // путь к папке 04-copy-directory
-const nameDir = path.dirname(__filename);
+let nameDir = path.dirname(__filename);
 // путь к папке files с содержимым для копирования
-const nameDirFiles = nameDir + '\\files';
+let nameDirFiles = nameDir;
+  nameDirFiles = path.join(nameDir, 'files');
 // путь к папке files-copy для сохранения скопированного содержимого папки files
-const nameDirFilesCopy = nameDir + '\\files-copy';
-
+let nameDirFilesCopy = nameDir + 'files-copy';
+  nameDirFilesCopy = path.join(nameDir, 'files-copy');
 // получение данных о папке наличии/отсутствии папки files-copy
 fs.stat (nameDirFilesCopy, err => {
     if (err) {
@@ -33,7 +34,7 @@ function copyFolder () {
         } else {
             // копирование содержимого папки files в папку files-copy
             for (let file of files) {
-                fs.copyFile(nameDirFiles + '\\' + file, nameDirFilesCopy + '\\' + file, (err) => {
+                fs.copyFile(path.join(nameDirFiles, file), path.join(nameDirFilesCopy, file), (err) => {
                     if (err) throw err; 
                 });
             };
@@ -50,7 +51,7 @@ function clearFolder () {
         } else {
             // удаление содержимого папки files-copy
             for (let file of files) {
-                fs.unlink(nameDirFilesCopy + '\\' + file, (err) => {
+                fs.unlink(path.join(nameDirFilesCopy, file), (err) => {
                     if (err) throw err;
                 });
             };

@@ -5,7 +5,8 @@ const {
   stdout } = process;
 
 // путь к создаваемому файлу text.txt
-const name = path.dirname(__filename) + "\\text.txt"; 
+let name = path.dirname(__filename)
+  name = path.join(name, 'text.txt');
 
 // создать файл text.txt
 fs.writeFile (  
@@ -35,13 +36,3 @@ function writetext () {
         };
     });
 };
-
-// вывести прощальную фразу в консоль
-process.on ("exit", () => {
-    stdout.write("Введенный Вами текст записан. Всего хорошего!");
-}); 
-
-// завершение процесса
-process.on ("SIGINT", () => {
-    process.exit();
-}); 

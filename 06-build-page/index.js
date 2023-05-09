@@ -4,22 +4,29 @@ const fs = require('fs');
 // путь к папке 06-build-page
 const nameDir = path.dirname(__filename);
 // путь к файлу template.html
-const nameFileTemplateHtml = nameDir + "\\template.html";
+let nameFileTemplateHtml = nameDir;
+  nameFileTemplateHtml = path.join(nameFileTemplateHtml, 'template.html');
 // путь к папке components
-const nameDirComponents = nameDir + "\\components";
+let nameDirComponents = nameDir;
+  nameDirComponents = path.join(nameDirComponents, 'components');
 // путь к папке project-dist
-const nameDirProjectDist = nameDir + "\\project-dist";
+let nameDirProjectDist = nameDir;
+  nameDirProjectDist = path.join(nameDirProjectDist, 'project-dist');
 // путь к файлу index.html
-const nameFileHtml = nameDirProjectDist + "\\index.html";
+let nameFileHtml = nameDirProjectDist;
+  nameFileHtml = path.join(nameFileHtml, 'index.html');
 // путь к папке styles (по условию задания)
-const styles = nameDir + "\\styles";
+let styles = nameDir;
+  styles = path.join(styles, 'styles');
 // путь к файлу style.css (созданн в папке project-dist)
-const styleCss = nameDirProjectDist + "\\style.css";
+let styleCss = nameDirProjectDist;
+  styleCss = path.join(styleCss, 'style.css');
 // путь к папке assets (по условию задания)
-const assets = nameDir + "\\assets";
+let assets = nameDir;
+  assets = path.join(assets, 'assets');
 // путь к папке assets (созданна в папке project-dist)
-const assetsCopy = nameDirProjectDist + "\\assets";
-
+let assetsCopy = nameDirProjectDist;
+  assetsCopy = path.join(assetsCopy, 'assets');
 // удалить содержимое папки project-dist, если папка имеется
 fs.rm (nameDirProjectDist, { recursive: true, force: true }, err => {
     if (err) throw err;
@@ -57,8 +64,8 @@ function addFileIndexHtml () {
 
                 for (let file of files) {
                     // создать поток чтения папки 
-                    const fileFolderComponents = fs.createReadStream(nameDirComponents + '\\' + file);
-
+                    let fileFolderComponents = fs.createReadStream(path.join(nameDirComponents, file));
+                      
                     // добавить в массивы название и содержание файлов папки
                     textFile.push(fileFolderComponents);
                     nameFile.push(path.parse(file).name);
@@ -122,7 +129,7 @@ function addFileCss () {
 
         for (let file of files) {
             // путь к файлам папки styles 
-            const fileFolderStyles = styles + '\\' + file;
+            const fileFolderStyles = path.join(styles, file);
 
             // проверить расширение пути файла в папке styles
             if (path.parse(file).ext === '.css') {

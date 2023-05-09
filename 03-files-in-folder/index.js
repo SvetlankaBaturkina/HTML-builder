@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 // путь к директории
-const nameDir = path.dirname(__filename) + "/secret-folder";
+let nameDir = path.dirname(__filename);
+  nameDir = path.join(nameDir, 'secret-folder'); 
 
 // чтение содержимого папки secret-folder
 fs.promises.readdir(nameDir).then(files => {
@@ -23,8 +24,6 @@ fs.promises.readdir(nameDir).then(files => {
             // вывод данных о файле в консоль
             console.log(fileData);
           }
-
         });
-
     }
 });
